@@ -102,7 +102,7 @@
     <div class="nav">
         <button onclick="location.href='catalogue.jsp'">Catalogue médicament</button>
         <button onclick="location.href='connexion.jsp'">Connexion</button>
-        <button onclick="location.href='inscription.jsp'">S’inscrire</button>
+        <button onclick="location.href='creationCompte.jsp'">S’inscrire</button>
     </div>
 </div>
 
