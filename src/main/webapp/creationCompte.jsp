@@ -68,7 +68,7 @@
             </div>
             <div class="row mb-4 align-items-center">
                 <div class="col-4">
-                    <span class="d-block px-3 py-2 bg-success text-white rounded">Numéro Assurance Maladie :</span>
+                    <span class="d-block px-3 py-2 bg-success text-white rounded">N° Assurance Maladie :</span>
                 </div>
                 <div class="col-8">
                     <input type="text" name="numeroAssuranceMaladie" class="form-control"/>
