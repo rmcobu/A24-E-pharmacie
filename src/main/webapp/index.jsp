@@ -22,7 +22,9 @@
             <button class="btn btn-secondary me-2" onclick="location.href='creationCompte.jsp'">S'inscrire</button>
         </div>
     </div>
+
 </nav>
+
 
 <!-- Contenu principal -->
 <section class="container my-5 flex-grow-1">
