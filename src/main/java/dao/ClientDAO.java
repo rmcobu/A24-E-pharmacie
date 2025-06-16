@@ -1,4 +1,14 @@
 package dao;
+import model.Client;
+import java.util.Optional;
 
-public class ClientDAO {
+public interface ClientDAO {
+
+        void save(Client client);
+        Optional<Client> findByEmail(String email);
 }
+
+
+
+
+

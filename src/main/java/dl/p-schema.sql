@@ -5,8 +5,13 @@ CREATE TABLE Commande (
                       etat BOOLEAN NOT NULL,
                       date_commande DATETIME NOT NULL,
                       mode_paiement BOOLEAN NOT NULL,
-                      mode_retrait BOOL NOT NULL,
-                      adresse VARCHAR(255) NOT NULL
+                      mode_retrait BOOLEAN NOT NULL,
+                      adresse VARCHAR(255) NOT NULL,
+                      CONSTRAINT FK_Commande_Client
+                      FOREIGN KEY (id_client)
+                      REFERENCES Client(id_client)
+                      ON UPDATE CASCADE
+                      ON DELETE RESTRICT
 );
 
 
