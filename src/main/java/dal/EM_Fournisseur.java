@@ -1,5 +1,5 @@
 package dal;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 public class EM_Fournisseur {
 

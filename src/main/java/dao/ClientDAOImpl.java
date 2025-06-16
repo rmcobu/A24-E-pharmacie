@@ -1,8 +1,8 @@
 package dao;
 import model.Client;
 import dal.EM_Fournisseur;
-import javax.persistence.*;
-import javax.transaction.Transactional;
+import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import java.util.Optional;
 
 @Transactional
