@@ -8,8 +8,9 @@ public class Medicament {
     private boolean disponibilite;
     private String description;
     private int quantiteEnStock;
+    private String image;
 
-    public Medicament(int id, String nom, String categorie, double prix, boolean disponibilite, String description, int quantiteEnStock) {
+    public Medicament(int id, String nom, String categorie, double prix, boolean disponibilite, String description, int quantiteEnStock, String image) {
         this.id = id;
         this.nom = nom;
         this.categorie = categorie;
@@ -17,6 +18,7 @@ public class Medicament {
         this.disponibilite = disponibilite;
         this.description = description;
         this.quantiteEnStock = quantiteEnStock;
+        this.image = image;
     }
     // Getters
     public int getId() { return id; }
@@ -26,4 +28,5 @@ public class Medicament {
     public boolean isDisponibilite() { return disponibilite; }
     public String getDescription() { return description; }
     public int getQuantiteEnStock() { return quantiteEnStock; }
+    public String getImage() { return image; }
 }

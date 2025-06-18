@@ -11,19 +11,19 @@ public class MedicamentService {
     public MedicamentService() {
         medicaments = new ArrayList<>();
 
-        medicaments.add(new Medicament(1, "Tylenol", "Analgésique", 7.99, true, "Soulage la douleur et la fièvre", 50));
-        medicaments.add(new Medicament(2, "Advil", "Anti-inflammatoire", 8.49, true, "Réduit inflammation et douleurs", 40));
-        medicaments.add(new Medicament(3, "Aspirine", "Antipyrétique", 5.99, true, "Traitement douleurs légères", 35));
-        medicaments.add(new Medicament(4, "Reactine", "Antihistaminique", 11.99, true, "Allergies saisonnières", 30));
-        medicaments.add(new Medicament(5, "Claritin", "Antihistaminique", 12.49, true, "Soulage les allergies", 25));
-        medicaments.add(new Medicament(6, "Gravol", "Antinauséeux", 6.99, true, "Prévention nausées/vomissements", 45));
-        medicaments.add(new Medicament(7, "Tums", "Antiacide", 4.99, true, "Soulage les brûlures d’estomac", 50));
-        medicaments.add(new Medicament(8, "Imodium", "Antidiarrhéique", 9.49, true, "Traitement de la diarrhée", 30));
-        medicaments.add(new Medicament(9, "Crestor", "Cholestérol", 23.99, false, "Réduction du cholestérol", 0));
-        medicaments.add(new Medicament(10, "Ventolin", "Bronchodilatateur", 14.99, true, "Soulage l'asthme", 20));
+        medicaments.add(new Medicament(1, "Tylenol", "Analgésique", 7.99, true, "Soulage la douleur et la fièvre", 50,"tylenol.jpg"));
+        medicaments.add(new Medicament(2, "Advil", "Anti-inflammatoire", 8.49, true, "Réduit inflammation et douleurs", 40,"advil.jpg"));
+        medicaments.add(new Medicament(3, "Aspirine", "Antipyrétique", 5.99, true, "Traitement douleurs légères", 35,"aspirin.png"));
+        medicaments.add(new Medicament(4, "Reactine", "Antihistaminique", 11.99, true, "Allergies saisonnières", 30,"reactine.png"));
+        medicaments.add(new Medicament(5, "Claritin", "Antihistaminique", 12.49, true, "Soulage les allergies", 25,"claritin.png"));
+        medicaments.add(new Medicament(6, "Gravol", "Antinauséeux", 6.99, true, "Prévention nausées/vomissements", 45,"gravol.png"));
+        medicaments.add(new Medicament(7, "Tums", "Antiacide", 4.99, true, "Soulage les brûlures d’estomac", 50,"tums.png"));
+        medicaments.add(new Medicament(8, "Imodium", "Antidiarrhéique", 9.49, true, "Traitement de la diarrhée", 30,"imodium.png"));
+        medicaments.add(new Medicament(9, "Crestor", "Cholestérol", 23.99, false, "Réduction du cholestérol", 0,"crestor.png"));
+        medicaments.add(new Medicament(10, "Ventolin", "Bronchodilatateur", 14.99, true, "Soulage l'asthme", 20,"ventolin.png"));
 
-        medicaments.add(new Medicament(11, "Zyrtec", "Antihistaminique", 10.49, true, "Soulage les éternuements", 20));
-        medicaments.add(new Medicament(12, "Metformin", "Diabète", 18.99, true, "Contrôle la glycémie", 50));
+        medicaments.add(new Medicament(11, "Zyrtec", "Antihistaminique", 10.49, true, "Soulage les éternuements", 20, "zyrtec.png"));
+        medicaments.add(new Medicament(12, "Metformin", "Diabète", 18.99, true, "Contrôle la glycémie", 50,"metformina.png"));
         medicaments.add(new Medicament(13, "Synthroid", "Thyroïde", 21.49, true, "Hormone thyroïdienne", 15));
         medicaments.add(new Medicament(14, "Lyrica", "Neuropathie", 32.99, true, "Douleurs nerveuses", 10));
         medicaments.add(new Medicament(15, "Zoloft", "Antidépresseur", 27.99, true, "Traitement de la dépression", 20));
