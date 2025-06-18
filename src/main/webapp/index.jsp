@@ -18,13 +18,27 @@
         </a>
         <div class="ms-auto">
             <button class="btn btn-secondary me-2" onclick="location.href='catalogue.jsp'">Catalogue médicament</button>
+        <c:choose>
+            <c:when test="${not empty sessionScope.user}">
+                <form action="logout" method="get" class="d-inline">
+                    <button type="submit" class="btn btn-secondary me-2">Déconnexion</button>
+                </form>
+            </c:when>
+            <c:otherwise>
             <button class="btn btn-secondary me-2" onclick="location.href='connexion.jsp'">Connexion</button>
             <button class="btn btn-secondary me-2" onclick="location.href='creationCompte.jsp'">S'inscrire</button>
+            </c:otherwise>
+        </c:choose>
         </div>
     </div>
-
 </nav>
 
+<!-- Message de bienvenue -->
+<c:if test="${not empty sessionScope.user}">
+    <div class="container mt-4">
+        <h2>Bonjour, <c:out value="${sessionScope.user.prenom}" /> !</h2>
+    </div>
+</c:if>
 
 <!-- Contenu principal -->
 <section class="container my-5 flex-grow-1">

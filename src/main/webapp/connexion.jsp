@@ -21,6 +21,11 @@
 
             <button class="btn btn-secondary me-2" onclick="location.href='index.jsp'">Accueil</button>
             <a class="btn btn-primary" href="creationCompte.jsp">S'inscrire</a>
+            <c:if test="${not empty sessionScope.user}">
+                <form action="logout" method="get" class="d-inline">
+                    <button type="submit" class="btn btn-secondary">Déconnexion</button>
+                </form>
+            </c:if>
         </div>
     </div>
 </nav>
