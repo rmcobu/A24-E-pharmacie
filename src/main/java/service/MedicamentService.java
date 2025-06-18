@@ -24,14 +24,14 @@ public class MedicamentService {
 
         medicaments.add(new Medicament(11, "Zyrtec", "Antihistaminique", 10.49, true, "Soulage les éternuements", 20, "zyrtec.png"));
         medicaments.add(new Medicament(12, "Metformin", "Diabète", 18.99, true, "Contrôle la glycémie", 50,"metformina.png"));
-        medicaments.add(new Medicament(13, "Synthroid", "Thyroïde", 21.49, true, "Hormone thyroïdienne", 15));
-        medicaments.add(new Medicament(14, "Lyrica", "Neuropathie", 32.99, true, "Douleurs nerveuses", 10));
-        medicaments.add(new Medicament(15, "Zoloft", "Antidépresseur", 27.99, true, "Traitement de la dépression", 20));
-        medicaments.add(new Medicament(16, "Cipralex", "Antidépresseur", 25.49, true, "Anxiété/dépression", 18));
-        medicaments.add(new Medicament(17, "Prozac", "Antidépresseur", 24.99, true, "Troubles dépressifs", 16));
-        medicaments.add(new Medicament(18, "Ritalin", "TDAH", 29.49, false, "Améliore la concentration", 0));
-        medicaments.add(new Medicament(19, "Ativan", "Anxiolytique", 22.99, true, "Réduit l’anxiété", 14));
-        medicaments.add(new Medicament(20, "Xanax", "Anxiolytique", 26.99, false, "Traitement des crises d’angoisse", 0));
+        medicaments.add(new Medicament(13, "Synthroid", "Thyroïde", 21.49, true, "Hormone thyroïdienne", 15,"synthroid.png"));
+        medicaments.add(new Medicament(14, "Lyrica", "Neuropathie", 32.99, true, "Douleurs nerveuses", 10,"lyrica.png"));
+        medicaments.add(new Medicament(15, "Zoloft", "Antidépresseur", 27.99, true, "Traitement de la dépression", 20,"zoloft.png"));
+        medicaments.add(new Medicament(16, "Cipralex", "Antidépresseur", 25.49, true, "Anxiété/dépression", 18,"cipralex.png"));
+        medicaments.add(new Medicament(17, "Prozac", "Antidépresseur", 24.99, true, "Troubles dépressifs", 16, "prozac.png"));
+        medicaments.add(new Medicament(18, "Ritalin", "TDAH", 29.49, false, "Améliore la concentration", 0,"ritalin.png"));
+        medicaments.add(new Medicament(19, "Ativan", "Anxiolytique", 22.99, true, "Réduit l’anxiété", 14,"ativan.png"));
+        medicaments.add(new Medicament(20, "Xanax", "Anxiolytique", 26.99, false, "Traitement des crises d’angoisse", 0,"xanax.png"));
 
         medicaments.add(new Medicament(21, "Nasonex", "Corticostéroïde", 13.49, true, "Congestion nasale", 24,"nasonex.png"));
         medicaments.add(new Medicament(22, "Cymbalta", "Antidépresseur", 28.49, true, "Douleurs et dépression", 12,"cymbalta.png"));
