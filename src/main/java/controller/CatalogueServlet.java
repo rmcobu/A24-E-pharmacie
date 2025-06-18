@@ -8,7 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @WebServlet("/catalogue")
 public class CatalogueServlet extends HttpServlet {
@@ -29,16 +29,9 @@ public class CatalogueServlet extends HttpServlet {
         List<Medicament> liste = medicamentService.getCatalogue();
 
         // Filtrage
-        if (filtreNom != null && !filtreNom.trim().isEmpty()) {
-            liste = liste.stream()
-                    .filter(m -> m.getNom().toLowerCase().contains(filtreNom.toLowerCase()))
-                    .collect(Collectors.toList());
-        }
-
-        if (filtreCategorie != null && !filtreCategorie.trim().isEmpty()) {
-            liste = liste.stream()
-                    .filter(m -> m.getCategorie().toLowerCase().contains(filtreCategorie.toLowerCase()))
-                    .collect(Collectors.toList());
+        if ((filtreNom != null && !filtreNom.isBlank()) ||
+                (filtreCategorie != null && !filtreCategorie.isBlank())) {
+            liste = medicamentService.filterBy(filtreNom, filtreCategorie);
         }
 
         request.setAttribute("medicaments", liste);

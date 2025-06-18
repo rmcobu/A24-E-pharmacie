@@ -17,7 +17,7 @@
             <span class="ms-2 h4 text-success mb-0">PHARMACY</span>
         </a>
         <div class="ms-auto">
-            <button class="btn btn-secondary me-2" onclick="location.href='catalogue.jsp'">Catalogue médicament</button>
+            <button class="btn btn-secondary me-2" onclick="location.href='/catalogue'">Catalogue médicament</button>
         <c:choose>
             <c:when test="${not empty sessionScope.user}">
                 <form action="logout" method="get" class="d-inline">

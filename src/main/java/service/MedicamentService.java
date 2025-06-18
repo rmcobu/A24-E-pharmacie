@@ -3,6 +3,7 @@ package service;
 import model.Medicament;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MedicamentService {
     private List<Medicament> medicaments;
@@ -47,4 +48,22 @@ public class MedicamentService {
     public List<Medicament> getCatalogue() {
         return medicaments;
     }
+
+    public List<Medicament> filterBy(String nomFilter, String catFilter) {
+        return medicaments.stream()
+                .filter(m -> {
+                    boolean okNom = true, okCat = true;
+                    if (nomFilter != null && !nomFilter.isBlank()) {
+                        okNom = m.getNom().toLowerCase()
+                                .contains(nomFilter.toLowerCase());
+                    }
+                    if (catFilter != null && !catFilter.isBlank()) {
+                        okCat = m.getCategorie().toLowerCase()
+                                .contains(catFilter.toLowerCase());
+                    }
+                    return okNom && okCat;
+                })
+                .collect(Collectors.toList());
+    }
 }
+
