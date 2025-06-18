@@ -55,10 +55,13 @@
         <c:forEach var="medicament" items="${medicaments}">
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="card h-100 text-center">
+                    <img src="images/${medicament.image}"
+                         class="card-img-top"
+                         alt="${medicament.nom}" />
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">${medicament.nom}</h5>
                         <p class="card-text text-danger fw-bold mb-3">
-                                ${medicament.prix} €
+                                ${medicament.prix} $
                         </p>
                         <button class="btn btn-primary mt-auto">
                             Ajouter au panier

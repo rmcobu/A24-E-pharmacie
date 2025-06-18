@@ -33,16 +33,16 @@ public class MedicamentService {
         medicaments.add(new Medicament(19, "Ativan", "Anxiolytique", 22.99, true, "Réduit l’anxiété", 14));
         medicaments.add(new Medicament(20, "Xanax", "Anxiolytique", 26.99, false, "Traitement des crises d’angoisse", 0));
 
-        medicaments.add(new Medicament(21, "Nasonex", "Corticostéroïde", 13.49, true, "Congestion nasale", 24));
-        medicaments.add(new Medicament(22, "Cymbalta", "Antidépresseur", 28.49, true, "Douleurs et dépression", 12));
-        medicaments.add(new Medicament(23, "Tamiflu", "Antiviral", 34.99, true, "Traitement de la grippe", 10));
-        medicaments.add(new Medicament(24, "Prevacid", "Anti-ulcéreux", 17.99, true, "Traitement des ulcères", 9));
-        medicaments.add(new Medicament(25, "Zantac", "Antiacide", 15.99, true, "Réduction de l’acidité", 22));
-        medicaments.add(new Medicament(26, "Plavix", "Anticoagulant", 31.49, true, "Prévention AVC/crises", 11));
-        medicaments.add(new Medicament(27, "Coumadin", "Anticoagulant", 33.49, true, "Fluidifiant sanguin", 8));
-        medicaments.add(new Medicament(28, "Aerius", "Antihistaminique", 9.99, true, "Allergies respiratoires", 30));
-        medicaments.add(new Medicament(29, "Nicoderm", "Sevrage tabagique", 19.99, true, "Aide à arrêter de fumer", 17));
-        medicaments.add(new Medicament(30, "Dulcolax", "Laxatif", 6.49, true, "Soulage la constipation", 36));
+        medicaments.add(new Medicament(21, "Nasonex", "Corticostéroïde", 13.49, true, "Congestion nasale", 24,"nasonex.png"));
+        medicaments.add(new Medicament(22, "Cymbalta", "Antidépresseur", 28.49, true, "Douleurs et dépression", 12,"cymbalta.png"));
+        medicaments.add(new Medicament(23, "Tamiflu", "Antiviral", 34.99, true, "Traitement de la grippe", 10,"tamiflu.png"));
+        medicaments.add(new Medicament(24, "Prevacid", "Anti-ulcéreux", 17.99, true, "Traitement des ulcères", 9,"prevacid.png"));
+        medicaments.add(new Medicament(25, "Zantac", "Antiacide", 15.99, true, "Réduction de l’acidité", 22,"zantac.png"));
+        medicaments.add(new Medicament(26, "Plavix", "Anticoagulant", 31.49, true, "Prévention AVC/crises", 11,"plavix.png"));
+        medicaments.add(new Medicament(27, "Coumadin", "Anticoagulant", 33.49, true, "Fluidifiant sanguin", 8,"coumadin.png"));
+        medicaments.add(new Medicament(28, "Aerius", "Antihistaminique", 9.99, true, "Allergies respiratoires", 30,"aerius.png"));
+        medicaments.add(new Medicament(29, "Nicoderm", "Sevrage tabagique", 19.99, true, "Aide à arrêter de fumer", 17,"nicoderm.png"));
+        medicaments.add(new Medicament(30, "Dulcolax", "Laxatif", 6.49, true, "Soulage la constipation", 36,"dulcolax.png"));
     }
 
     public List<Medicament> getCatalogue() {
