@@ -211,24 +211,33 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="item" items="${sessionScope.panier.items}">
+                                <c:forEach var="entry" items="${sessionScope.panier.items.entrySet()}">
                                     <tr>
+                                        <td>${entry.key.nom}</td>
+                                        <td>${entry.key.prix} $</td>
+                                        <td>${entry.value}</td>
+                                        <td>${entry.key.prix * entry.value} $</td>
                                         <td>
-                                            <div class="d-flex align-items-center">
-                                                <img src="images/${item.medicament.image}" class="cart-item-image me-3" alt="${item.medicament.nom}">
-                                                <div>
-                                                    <h6 class="mb-0">${item.medicament.nom}</h6>
-                                                    <small class="text-muted">${item.medicament.categorie}</small>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>${item.medicament.prix} €</td>
-                                        <td>${item.quantite}</td>
-                                        <td>${item.medicament.prix * item.quantite} €</td>
-                                        <td>
+                                            <!-- Décrémenter d'une unité -->
                                             <form action="panier" method="post" class="d-inline">
-                                                <input type="hidden" name="action" value="supprimer">
-                                                <input type="hidden" name="id" value="${item.medicament.id}">
+                                                <input type="hidden" name="action" value="supprimer"/>
+                                                <input type="hidden" name="id" value="${entry.key.id}"/>
+                                                <button type="submit" class="btn btn-sm btn-outline-secondary">
+                                                    <i class="bi bi-dash"></i>
+                                                </button>
+                                            </form>
+                                            <!-- Incrémenter d'une unité -->
+                                            <form action="panier" method="post" class="d-inline">
+                                                <input type="hidden" name="action" value="ajouter"/>
+                                                <input type="hidden" name="id" value="${entry.key.id}"/>
+                                                <button type="submit" class="btn btn-sm btn-outline-success">
+                                                    <i class="bi bi-plus"></i>
+                                                </button>
+                                            </form>
+                                            <!-- Supprimer complètement -->
+                                            <form action="panier" method="post" class="d-inline">
+                                                <input type="hidden" name="action" value="supprimerTout"/>
+                                                <input type="hidden" name="id" value="${entry.key.id}"/>
                                                 <button type="submit" class="btn btn-sm btn-outline-danger">
                                                     <i class="bi bi-trash"></i>
                                                 </button>
@@ -240,7 +249,7 @@
                                 <tfoot>
                                 <tr class="table-active">
                                     <td colspan="3" class="text-end fw-bold">Total</td>
-                                    <td colspan="2" class="fw-bold">${sessionScope.panier.total} €</td>
+                                    <td colspan="2" class="fw-bold">${sessionScope.panier.total} $</td>
                                 </tr>
                                 </tfoot>
                             </table>
@@ -279,7 +288,7 @@
         document.getElementById('modalMedicamentName').textContent = name;
         document.getElementById('modalMedicamentDescription').textContent = description;
         document.getElementById('modalMedicamentCategory').textContent = category;
-        document.getElementById('modalMedicamentPrice').textContent = price + ' €';
+        document.getElementById('modalMedicamentPrice').textContent = price + ' $';
         document.getElementById('modalMedicamentImage').src = 'images/' + image;
         document.getElementById('modalMedicamentId').value = id;
     }

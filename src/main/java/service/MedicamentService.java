@@ -76,5 +76,12 @@ public class MedicamentService {
                 })
                 .collect(Collectors.toList());
     }
+
+    public Medicament findById(int id) {
+        return medicaments.stream()
+                .filter(m -> m.getId() == id)
+                .findFirst()
+                .orElse(null);
+    }
 }
 
