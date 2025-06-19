@@ -24,11 +24,16 @@ public class CatalogueServlet extends HttpServlet {
             throws ServletException, IOException {
 
         // Récupération des paramètres
-        String recherche = request.getParameter("recherche");
-        String categorie = request.getParameter("categorie");
-        String tri = request.getParameter("tri");
+        String filtreNom       = request.getParameter("filtreNom");
+        String filtreCategorie = request.getParameter("filtreCategorie");
+        String tri             = request.getParameter("tri");
+
+        // Filtrage initial
+        List<Medicament> medicamentsFiltres = medicamentService.filterBy(filtreNom, filtreCategorie);
+
+
         int page = 1;
-        int limit = 12;
+        int limit = medicamentsFiltres.size();
 
         try {
             page = Integer.parseInt(request.getParameter("page"));
@@ -36,8 +41,7 @@ public class CatalogueServlet extends HttpServlet {
             page = 1;
         }
 
-        // Filtrage initial
-        List<Medicament> medicamentsFiltres = medicamentService.filterBy(recherche, categorie);
+
 
         // Application du tri
         if (tri != null && !tri.isEmpty()) {
@@ -69,8 +73,8 @@ public class CatalogueServlet extends HttpServlet {
         request.setAttribute("medicaments", medicaments);
         request.setAttribute("page", page);
         request.setAttribute("totalPages", totalPages);
-        request.setAttribute("recherche", recherche);
-        request.setAttribute("categorie", categorie);
+        request.setAttribute("recherche", filtreNom);
+        request.setAttribute("categorie", filtreCategorie);
         request.setAttribute("tri", tri);
 
         request.getRequestDispatcher("catalogue.jsp").forward(request, response);

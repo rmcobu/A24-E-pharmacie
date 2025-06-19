@@ -95,17 +95,19 @@
     <h2 class="text-center mb-4">Catalogue des Médicaments</h2>
 
     <!-- Barre de recherche/filtre -->
-    <div class="search-filter-bar">
+    <form method="get" action="catalogue" class="search-filter-bar">
         <div class="search-box">
             <i class="bi bi-search"></i>
-            <input type="text" class="form-control" name="filtreNom" placeholder="Rechercher un produit..." value="${param.filtreNom}">
+            <input type="text" class="form-control" name="filtreNom"
+                   placeholder="Rechercher un produit..."
+                   value="${param.filtreNom}">
         </div>
         <div class="filter-box">
             <select class="form-select" name="filtreCategorie">
                 <option value="">Toutes catégories</option>
                 <option value="Médicaments" ${param.filtreCategorie eq 'Médicaments' ? 'selected' : ''}>Médicaments</option>
                 <option value="Hygiène" ${param.filtreCategorie eq 'Hygiène' ? 'selected' : ''}>Hygiène</option>
-                <option value="Vitamines" ${param.filtreCategorie eq 'Vitamines' ? 'selected' : ''}>Vitamines</option>
+                <option value="Vitamine" ${param.filtreCategorie eq 'Vitamine' ? 'selected' : ''}>Vitamines</option>
             </select>
             <select class="form-select" name="tri">
                 <option value="">Trier par</option>
@@ -114,7 +116,7 @@
             </select>
             <button type="submit" class="btn btn-outline-success">Filtrer</button>
         </div>
-    </div>
+    </form>
 
     <!-- Message -->
     <c:if test="${not empty requestScope.message}">
@@ -133,7 +135,7 @@
                     <img src="images/${medicament.image}" class="card-img-top p-3" alt="${medicament.nom}" style="height: 200px; object-fit: contain;">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">${medicament.nom}</h5>
-                        <p class="card-text text-danger fw-bold mb-3">${medicament.prix} €</p>
+                        <p class="card-text text-danger fw-bold mb-3">${medicament.prix} $</p>
                         <form action="panier" method="post" class="mt-auto">
                             <input type="hidden" name="action" value="ajouter">
                             <input type="hidden" name="id" value="${medicament.id}">
