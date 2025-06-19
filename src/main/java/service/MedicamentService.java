@@ -45,15 +45,15 @@ public class MedicamentService {
         //Hygiène
         medicaments.add(new Medicament(29, "Nicoderm", "Hygiéniques", 19.99, true, "Aide à arrêter de fumer", 17, "nicoderm.png"));
         medicaments.add(new Medicament(30, "Dulcolax", "Hygiéniques", 6.49, true, "Soulage la constipation", 36, "dulcolax.png"));
-        medicaments.add(new Medicament(2, "Dove Savon", "Hygiène", 3.99, true, "Savon doux pour le corps", 30, "dove.png"));
-        medicaments.add(new Medicament(3, "Oral-B Brosses à dents", "Hygiène", 4.49, true, "Brosses à dents souples", 40, "oral_b.png"));
-        medicaments.add(new Medicament(4, "Head & Shoulders Shampoo", "Hygiène", 8.99, true, "Shampoing anti-pelliculaire", 25, "headshoulders.png"));
-        medicaments.add(new Medicament(5, "Gillette Rasoir", "Hygiène", 12.99, true, "Rasoir jetable", 20, "gillette.webp"));
+        medicaments.add(new Medicament(31, "Dove Savon", "Hygiène", 3.99, true, "Savon doux pour le corps", 30, "dove.png"));
+        medicaments.add(new Medicament(32, "Oral-B Brosses à dents", "Hygiène", 4.49, true, "Brosses à dents souples", 40, "oral_b.png"));
+        medicaments.add(new Medicament(33, "Head & Shoulders Shampoo", "Hygiène", 8.99, true, "Shampoing anti-pelliculaire", 25, "headshoulders.png"));
+        medicaments.add(new Medicament(34, "Gillette Rasoir", "Hygiène", 12.99, true, "Rasoir jetable", 20, "gillette.webp"));
         //Vitamine
-        medicaments.add(new Medicament(6, "Vitamine C", "Vitamine", 9.99, true, "Complément en vitamine C", 60, "Vitamine_C.webp"));
-        medicaments.add(new Medicament(7, "Vitamine D3", "Vitamine", 12.49, true, "Supplément en vitamine D", 45, "vitamine_D.webp"));
-        medicaments.add(new Medicament(8, "Multivitamines", "Vitamine", 15.99, true, "Complexe vitaminique complet", 50, "Multivitamines.jpg"));
-        medicaments.add(new Medicament(9, "Fer", "Vitamine", 11.29, true, "Complément en fer", 35, "Fer.webp"));
+        medicaments.add(new Medicament(35, "Vitamine C", "Vitamine", 9.99, true, "Complément en vitamine C", 60, "Vitamine_C.webp"));
+        medicaments.add(new Medicament(36, "Vitamine D3", "Vitamine", 12.49, true, "Supplément en vitamine D", 45, "vitamine_D.webp"));
+        medicaments.add(new Medicament(37, "Multivitamines", "Vitamine", 15.99, true, "Complexe vitaminique complet", 50, "Multivitamines.jpg"));
+        medicaments.add(new Medicament(38, "Fer", "Vitamine", 11.29, true, "Complément en fer", 35, "Fer.webp"));
     }
 
     public List<Medicament> getCatalogue() {
