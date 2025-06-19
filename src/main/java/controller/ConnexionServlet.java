@@ -27,7 +27,7 @@ public class ConnexionServlet extends HttpServlet {
          authService.authenticate(email, password).ifPresentOrElse(user -> {
            HttpSession session = req.getSession();
            session.setAttribute("user", user);
-           try { resp.sendRedirect("index.jsp");
+           try { resp.sendRedirect("accueil.jsp");
 
            }
            catch (IOException ignored) {}
