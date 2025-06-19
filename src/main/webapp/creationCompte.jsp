@@ -15,13 +15,13 @@
 <nav class="navbar navbar-light bg-white border-bottom">
     <div class="container-fluid px-4 d-flex justify-content-between align-items-center">
 
-        <a class="navbar-brand d-flex align-items-center" href="index.jsp">
+        <a class="navbar-brand d-flex align-items-center" href="accueil.jsp">
             <img src="images/pharmacy_logo.png" height="60" alt="Logo">
             <span class="ms-2 h4 text-success mb-0">PHARMACY</span>
         </a>
 
         <div class="ms-auto">
-            <button class="btn btn-secondary me-2" onclick="location.href='index.jsp'">Accueil</button>
+            <button class="btn btn-secondary me-2" onclick="location.href='accueil.jsp'">Accueil</button>
             <a class="btn btn-primary" href="connexion.jsp">Connexion</a>
 
         </div>
