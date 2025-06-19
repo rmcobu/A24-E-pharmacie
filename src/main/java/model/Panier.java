@@ -14,7 +14,7 @@ public class Panier {
     public void enleverMedicament(Medicament med, int quantite) {
         items.computeIfPresent(med, (m, q) -> {
             int nouvelleQ = q - quantite;
-            return (nouvelleQ > 0) ? nouvelleQ : null; // null ⇒ borra la entrada
+            return (nouvelleQ > 0) ? nouvelleQ : null;
         });
     }
 

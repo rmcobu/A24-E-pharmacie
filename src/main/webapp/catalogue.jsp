@@ -69,10 +69,11 @@
             <span class="ms-2 h4 text-success mb-0">PHARMACY</span>
         </a>
         <div class="ms-auto">
-            <button type="button" class="btn btn-outline-success position-relative me-2" data-bs-toggle="modal" data-bs-target="#panierModal">
+            <button type="button" class="btn btn-outline-success position-relative me-2"
+                    data-bs-toggle="modal" data-bs-target="#panierModal">
                 <i class="bi bi-cart3"></i>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    ${not empty sessionScope.panier ? sessionScope.panier.items.size() : 0}
+                <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    ${not empty sessionScope.panier ? sessionScope.panier.totalItemsCount : 0}
                 </span>
             </button>
             <c:choose>
@@ -147,13 +148,96 @@
                 </div>
             </div>
         </c:forEach>
-        <c:if test="${ empty medicaments and (not empty param.filtreNom or not empty param.filtreCategorie) }">
+        <c:if test="${empty medicaments and (not empty param.filtreNom or not empty param.filtreCategorie)}">
             <div class="col-12">
-                <p class="text-center text-muted">Aucun médicament trouvé pour ces filtres.</p>
+                <div class="alert alert-warning text-center" role="alert">
+                    <!-- Si buscas por nombre, muéstralo -->
+                    <c:choose>
+                        <c:when test="${not empty param.filtreNom}">
+                            Aucun médicament trouvé pour « ${param.filtreNom} ».
+                        </c:when>
+                        <c:otherwise>
+                            Aucun médicament trouvé pour la catégorie « ${param.filtreCategorie} ».
+                        </c:otherwise>
+                    </c:choose>
+                </div>
             </div>
         </c:if>
     </div>
 </section>
+
+<!-- Modal Panier -->
+<div class="modal fade" id="panierModal" tabindex="-1" aria-labelledby="panierModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">Contenu de votre panier</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <c:choose>
+                    <c:when test="${not empty sessionScope.panier and not empty sessionScope.panier.items}">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Produit</th><th>Prix unitaire</th><th>Quantité</th><th>Total</th><th>Actions</th>
+                                </tr>
+                                </thead>
+                                <!-- Hemos añadido un ID al tbody para seleccionarlo más fácilmente -->
+                                <tbody id="cartTbody">
+                                <c:forEach var="entry" items="${sessionScope.panier.items.entrySet()}">
+                                    <tr>
+                                        <td>${entry.key.nom}</td>
+                                        <td>${entry.key.prix} $</td>
+                                        <td>${entry.value}</td>
+                                        <td>${entry.key.prix * entry.value} $</td>
+                                        <td>
+                                            <!-- Botones con la clase común cart-btn y data-action -->
+                                            <button type="button" class="btn btn-sm btn-outline-secondary cart-btn"
+                                                    data-action="supprimer" data-id="${entry.key.id}">−</button>
+                                            <button type="button" class="btn btn-sm btn-outline-success cart-btn"
+                                                    data-action="ajouter" data-id="${entry.key.id}">+</button>
+                                            <button type="button" class="btn btn-sm btn-outline-danger cart-btn"
+                                                    data-action="supprimerTout" data-id="${entry.key.id}">🗑</button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                                <tfoot>
+                                <tr class="table-active">
+                                    <td colspan="3" class="text-end fw-bold">Total</td>
+                                    <td colspan="2" class="fw-bold">${sessionScope.panier.total} $</td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="text-end">
+                            <button class="btn btn-outline-danger cart-btn" data-action="vider" data-id="0">
+                                Vider le panier
+                            </button>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="text-center py-4">
+                            <i class="bi bi-cart-x" style="font-size:3rem;color:#6c757d;"></i>
+                            <h5 class="mt-3">Votre panier est vide</h5>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Continuer mes achats
+                </button>
+                <c:if test="${not empty sessionScope.panier and not empty sessionScope.panier.items}">
+                    <a href="commande" class="btn btn-success">Commander</a>
+                </c:if>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- Modal Médicament -->
 <div class="modal fade" id="medicamentModal" tabindex="-1" aria-labelledby="medicamentModalLabel" aria-hidden="true">
@@ -169,8 +253,12 @@
                 </div>
                 <h4 id="modalMedicamentName" class="text-center mb-3"></h4>
                 <div class="row">
-                    <div class="col-md-6"><p><strong>Catégorie:</strong> <span id="modalMedicamentCategory"></span></p></div>
-                    <div class="col-md-6"><p><strong>Prix:</strong> <span id="modalMedicamentPrice" class="text-danger fw-bold"></span></p></div>
+                    <div class="col-md-6">
+                        <p><strong>Catégorie:</strong> <span id="modalMedicamentCategory"></span></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Prix:</strong> <span id="modalMedicamentPrice" class="text-danger fw-bold"></span></p>
+                    </div>
                 </div>
                 <h5>Description:</h5>
                 <p id="modalMedicamentDescription" class="text-muted"></p>
@@ -188,91 +276,6 @@
     </div>
 </div>
 
-<!-- ✅ Modal Panier avec bouton Commander -->
-<div class="modal fade" id="panierModal" tabindex="-1" aria-labelledby="panierModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-success text-white">
-                <h5 class="modal-title">Contenu de votre panier</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <c:choose>
-                    <c:when test="${not empty sessionScope.panier and not empty sessionScope.panier.items}">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>Produit</th>
-                                    <th>Prix unitaire</th>
-                                    <th>Quantité</th>
-                                    <th>Total</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach var="entry" items="${sessionScope.panier.items.entrySet()}">
-                                    <tr>
-                                        <td>${entry.key.nom}</td>
-                                        <td>${entry.key.prix} $</td>
-                                        <td>${entry.value}</td>
-                                        <td>${entry.key.prix * entry.value} $</td>
-                                        <td>
-                                            <!-- Décrémenter d'une unité -->
-                                            <form action="panier" method="post" class="d-inline">
-                                                <input type="hidden" name="action" value="supprimer"/>
-                                                <input type="hidden" name="id" value="${entry.key.id}"/>
-                                                <button type="submit" class="btn btn-sm btn-outline-secondary">
-                                                    <i class="bi bi-dash"></i>
-                                                </button>
-                                            </form>
-                                            <!-- Incrémenter d'une unité -->
-                                            <form action="panier" method="post" class="d-inline">
-                                                <input type="hidden" name="action" value="ajouter"/>
-                                                <input type="hidden" name="id" value="${entry.key.id}"/>
-                                                <button type="submit" class="btn btn-sm btn-outline-success">
-                                                    <i class="bi bi-plus"></i>
-                                                </button>
-                                            </form>
-                                            <!-- Supprimer complètement -->
-                                            <form action="panier" method="post" class="d-inline">
-                                                <input type="hidden" name="action" value="supprimerTout"/>
-                                                <input type="hidden" name="id" value="${entry.key.id}"/>
-                                                <button type="submit" class="btn btn-sm btn-outline-danger">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                                <tfoot>
-                                <tr class="table-active">
-                                    <td colspan="3" class="text-end fw-bold">Total</td>
-                                    <td colspan="2" class="fw-bold">${sessionScope.panier.total} $</td>
-                                </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="text-center py-4">
-                            <i class="bi bi-cart-x" style="font-size: 3rem; color: #6c757d;"></i>
-                            <h5 class="mt-3">Votre panier est vide</h5>
-                        </div>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continuer mes achats</button>
-                <c:if test="${not empty sessionScope.panier and not empty sessionScope.panier.items}">
-                    <a href="panier.jsp" class="btn btn-outline-primary">Voir le panier</a>
-                    <a href="commande.jsp" class="btn btn-success">Commander</a>
-                </c:if>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Footer -->
 <footer class="bg-success text-white py-3 mt-auto">
@@ -282,16 +285,80 @@
     </div>
 </footer>
 
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
 <script>
+
+    const ctx = '${pageContext.request.contextPath}';
+
+    function updateCart(action, id) {
+        console.log('updateCart', action, id);
+        fetch(`${ctx}/panier`, {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({ action, id })
+        })
+            .then(r => {
+                console.log('Fetch status:', r.status);
+                if (!r.ok) throw new Error(r.statusText);
+                return r.json();
+            })
+            .then(renderCart)
+            .catch(err => console.error('Erreur panier:', err));
+    }
+
+
+    function renderCart(json) {
+        document.getElementById('cartBadge').textContent = json.totalItemsCount;
+        const tbody = document.getElementById('cartTbody');
+        tbody.innerHTML = '';
+        json.items.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.innerHTML =
+                '<td>' + item.nom + '</td>' +
+                '<td>' + item.prix + ' $</td>' +
+                '<td>' + item.quantite + '</td>' +
+                '<td>' + (item.prix * item.quantite) + ' $</td>' +
+                '<td>' +
+                '<button type="button" class="btn btn-sm btn-outline-secondary cart-btn" ' +
+                'data-action="supprimer" data-id="' + item.id + '">−</button> ' +
+                '<button type="button" class="btn btn-sm btn-outline-success   cart-btn" ' +
+                'data-action="ajouter"  data-id="' + item.id + '">+</button> ' +
+                '<button type="button" class="btn btn-sm btn-outline-danger    cart-btn" ' +
+                'data-action="supprimerTout" data-id="' + item.id + '">🗑</button>' +
+                '</td>';
+            tbody.appendChild(tr);
+        });
+        const totalCell = document.querySelector('#panierModal tfoot .fw-bold:last-child');
+        if (totalCell) totalCell.textContent = json.total + ' $';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('Listener ready');
+        const modal = document.getElementById('panierModal');
+        modal.addEventListener('click', e => {
+            const btn = e.target.closest('.cart-btn');
+            if (!btn) return;
+            e.preventDefault();
+            updateCart(btn.dataset.action, btn.dataset.id);
+        });
+    });
+
+
     function showMedicamentDetails(id, name, description, category, price, image) {
-        document.getElementById('modalMedicamentName').textContent = name;
+        document.getElementById('modalMedicamentName').textContent        = name;
         document.getElementById('modalMedicamentDescription').textContent = description;
-        document.getElementById('modalMedicamentCategory').textContent = category;
-        document.getElementById('modalMedicamentPrice').textContent = price + ' $';
-        document.getElementById('modalMedicamentImage').src = 'images/' + image;
-        document.getElementById('modalMedicamentId').value = id;
+        document.getElementById('modalMedicamentCategory').textContent    = category;
+        document.getElementById('modalMedicamentPrice').textContent       = price + ' $';
+        document.getElementById('modalMedicamentImage').src               = 'images/' + image;
+        document.getElementById('modalMedicamentId').value               = id;
     }
 </script>
+
 </body>
 </html>
