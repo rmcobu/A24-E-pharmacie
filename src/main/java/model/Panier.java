@@ -11,6 +11,43 @@ public class Panier {
         items.merge(med, quantite, Integer::sum);
     }
 
+    public void enleverMedicament(Medicament med, int quantite) {
+        items.computeIfPresent(med, (m, q) -> {
+            int nouvelleQ = q - quantite;
+            return (nouvelleQ > 0) ? nouvelleQ : null; // null ⇒ borra la entrada
+        });
+    }
+
+
+    public void setQuantite(Medicament med, int quantite) {
+        if (quantite > 0) {
+            items.put(med, quantite);
+        } else {
+            items.remove(med);
+        }
+    }
+
+
+    public void supprimerMedicament(Medicament med) {
+        items.remove(med);
+    }
+
+
+    public void clear() {
+        items.clear();
+    }
+
+
+    public int getLinesCount() {
+        return items.size();
+    }
+
+
+    public int getTotalItemsCount() {
+        return items.values().stream().mapToInt(Integer::intValue).sum();
+    }
+
+
     public Map<Medicament, Integer> getItems() {
         return Collections.unmodifiableMap(items);
     }
