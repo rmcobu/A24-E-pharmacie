@@ -151,7 +151,6 @@
         <c:if test="${empty medicaments and (not empty param.filtreNom or not empty param.filtreCategorie)}">
             <div class="col-12">
                 <div class="alert alert-warning text-center" role="alert">
-                    <!-- Si buscas por nombre, muéstralo -->
                     <c:choose>
                         <c:when test="${not empty param.filtreNom}">
                             Aucun médicament trouvé pour « ${param.filtreNom} ».
@@ -184,7 +183,6 @@
                                     <th>Produit</th><th>Prix unitaire</th><th>Quantité</th><th>Total</th><th>Actions</th>
                                 </tr>
                                 </thead>
-                                <!-- Hemos añadido un ID al tbody para seleccionarlo más fácilmente -->
                                 <tbody id="cartTbody">
                                 <c:forEach var="entry" items="${sessionScope.panier.items.entrySet()}">
                                     <tr>
@@ -193,7 +191,7 @@
                                         <td>${entry.value}</td>
                                         <td>${entry.key.prix * entry.value} $</td>
                                         <td>
-                                            <!-- Botones con la clase común cart-btn y data-action -->
+                                            <!-- Boutons cart-btn et data-action -->
                                             <button type="button" class="btn btn-sm btn-outline-secondary cart-btn"
                                                     data-action="supprimer" data-id="${entry.key.id}">−</button>
                                             <button type="button" class="btn btn-sm btn-outline-success cart-btn"
@@ -230,9 +228,15 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Continuer mes achats
                 </button>
-                <c:if test="${not empty sessionScope.panier and not empty sessionScope.panier.items}">
-                    <a href="commande" class="btn btn-success">Commander</a>
-                </c:if>
+                <c:choose>
+                    <c:when test="${not empty sessionScope.user}">
+                        <a href="commande" class="btn btn-success">Commander</a>
+                    </c:when>
+                    <c:otherwise>
+                        <!-- redirige vers la page de connexion si pas logué -->
+                        <a href="connexion.jsp" class="btn btn-success">Commander</a>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </div>

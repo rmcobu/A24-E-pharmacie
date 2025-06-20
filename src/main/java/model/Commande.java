@@ -1,7 +1,10 @@
 package model;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 @Entity
 @Table(name = "Commande")
@@ -34,69 +37,67 @@ public class Commande {
     @Column(name = "adresse", nullable = false)
     private String adresse;
 
-    // Getters et Setters
+    // 🆕 Liste JSON des produits {id, nom, prix, quantite}
+    @Column(name = "items", nullable = false, columnDefinition = "JSON")
+    private String itemsJson;
 
-    public Integer getIdCommande() {
-        return idCommande;
-    }
+    // 🆕 Montants calculés
+    @Column(name = "sous_total", nullable = false, precision = 10, scale = 2)
+    private BigDecimal sousTotal;
 
-    public void setIdCommande(Integer idCommande) {
-        this.idCommande = idCommande;
-    }
+    @Column(name = "tps", nullable = false, precision = 10, scale = 2)
+    private BigDecimal tps;
 
-    public Client getClient() {
-        return client;
-    }
+    @Column(name = "tvq", nullable = false, precision = 10, scale = 2)
+    private BigDecimal tvq;
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
+    @Column(name = "total", nullable = false, precision = 10, scale = 2)
+    private BigDecimal total;
 
-    public Integer getIdPaiement() {
-        return idPaiement;
-    }
+    // ─── Getters et Setters ───────────────────────────────────────────────────
 
-    public void setIdPaiement(Integer idPaiement) {
-        this.idPaiement = idPaiement;
-    }
+    public Integer getIdCommande() { return idCommande; }
+    public void setIdCommande(Integer idCommande) { this.idCommande = idCommande; }
 
-    public Boolean getEtat() {
-        return etat;
-    }
+    public Client getClient() { return client; }
+    public void setClient(Client client) { this.client = client; }
 
-    public void setEtat(Boolean etat) {
-        this.etat = etat;
-    }
+    public Integer getIdPaiement() { return idPaiement; }
+    public void setIdPaiement(Integer idPaiement) { this.idPaiement = idPaiement; }
 
-    public LocalDateTime getDateCommande() {
-        return dateCommande;
-    }
+    public Boolean getEtat() { return etat; }
+    public void setEtat(Boolean etat) { this.etat = etat; }
 
-    public void setDateCommande(LocalDateTime dateCommande) {
-        this.dateCommande = dateCommande;
-    }
+    public LocalDateTime getDateCommande() { return dateCommande; }
+    public void setDateCommande(LocalDateTime dateCommande) { this.dateCommande = dateCommande; }
 
-    public Boolean getModePaiement() {
-        return modePaiement;
-    }
+    public Boolean getModePaiement() { return modePaiement; }
+    public void setModePaiement(Boolean modePaiement) { this.modePaiement = modePaiement; }
 
-    public void setModePaiement(Boolean modePaiement) {
-        this.modePaiement = modePaiement;
-    }
+    public Boolean getModeRetrait() { return modeRetrait; }
+    public void setModeRetrait(Boolean modeRetrait) { this.modeRetrait = modeRetrait; }
 
-    public Boolean getModeRetrait() {
-        return modeRetrait;
-    }
+    public String getAdresse() { return adresse; }
+    public void setAdresse(String adresse) { this.adresse = adresse; }
 
-    public void setModeRetrait(Boolean modeRetrait) {
-        this.modeRetrait = modeRetrait;
-    }
+    public String getItemsJson() { return itemsJson; }
+    public void setItemsJson(String itemsJson) { this.itemsJson = itemsJson; }
 
-    public String getAdresse() {
-        return adresse;
-    }
+    public BigDecimal getSousTotal() { return sousTotal; }
+    public void setSousTotal(BigDecimal sousTotal) { this.sousTotal = sousTotal; }
 
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
+    public BigDecimal getTps() { return tps; }
+    public void setTps(BigDecimal tps) { this.tps = tps; }
+
+    public BigDecimal getTvq() { return tvq; }
+    public void setTvq(BigDecimal tvq) { this.tvq = tvq; }
+
+    public BigDecimal getTotal() { return total; }
+    public void setTotal(BigDecimal total) { this.total = total; }
+
+    public Date getDateCommandeAsDate() {
+        return Date.from(this.dateCommande
+               .atZone(ZoneId.systemDefault())
+              .toInstant());
     }
 }
