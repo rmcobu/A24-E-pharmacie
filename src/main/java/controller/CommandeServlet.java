@@ -103,7 +103,7 @@ public class CommandeServlet extends HttpServlet {
 
 
 
-        // ─── 🆕 3) Persistance via JPA ────────────────────────────────────────
+        // ───  3) Persistance via JPA ────────────────────────────────────────
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("E-pharmacie");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
