@@ -7,6 +7,7 @@
 <head>
     <title>Créer un compte - Pharmacy</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 </head>
 <body class="d-flex flex-column min-vh-100">
 
@@ -96,8 +97,8 @@
 
 <footer class="bg-success text-white py-3 mt-auto">
     <div class="container d-flex justify-content-between">
-        <span>Numéro contact</span>
-        <span>Adresse</span>
+        <span><i class="bi bi-telephone"></i> 514 123 4567</span>
+        <span><i class="bi bi-geo-alt"></i> 123 Rue de la Pharmacie, 75000 Montréal</span>
     </div>
 </footer>
 

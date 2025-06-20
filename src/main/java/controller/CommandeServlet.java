@@ -113,7 +113,10 @@ public class CommandeServlet extends HttpServlet {
         emf.close();
 
         // 5) Stocker **avant** clear() pour pouvoir l’afficher ensuite
-        session.setAttribute("confirmationPanier", panier);
+
+        Panier confirmationPanier = new Panier();
+        panier.getItems().forEach((med, qty) -> confirmationPanier.ajouterMedicament(med, qty));
+        session.setAttribute("confirmationPanier", confirmationPanier);
         session.setAttribute("confirmationCommande", cmd);
 
         // 6) Vider le panier réel

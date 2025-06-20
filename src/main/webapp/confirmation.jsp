@@ -46,7 +46,7 @@
     <c:set var="commande" value="${sessionScope.confirmationCommande}"/>
 
     <p><strong>Total :</strong>
-        <fmt:formatNumber value="${commande.total}"
+        <fmt:formatNumber value="${panier.total}"
                           type="number" minFractionDigits="2" maxFractionDigits="2"/> $
     </p>
     <p><strong>Date :</strong>
@@ -59,13 +59,13 @@
             <p><strong>Livraison à :</strong> ${commande.adresse}</p>
         </c:when>
         <c:otherwise>
-            <p><strong>Ramassage à :</strong> 123 Rue de la Pharmacie, Montreal</p>
+            <p><strong>Ramassage à :</strong> 123 Rue de la Pharmacie, 75000 Montréal</p>
         </c:otherwise>
     </c:choose>
 
     <h4>Produits :</h4>
     <div class="list-group">
-        <c:forEach var="entry" items="${sessionScope.confirmationPanier.items.entrySet()}">
+        <c:forEach var="entry" items="${panier.items.entrySet()}">
             <div class="list-group-item d-flex align-items-center">
                 <img src="images/${entry.key.image}"
                      class="me-3" style="width:80px;height:80px;object-fit:contain"
@@ -82,7 +82,7 @@
                 </div>
             </div>
         </c:forEach>
-        <c:if test="${empty sessionScope.confirmationPanier.items}">
+        <c:if test="${empty panier.items}">
             <div class="list-group-item text-center text-muted">
                 Aucun produit.
             </div>
@@ -93,8 +93,8 @@
 <!-- Footer -->
 <footer class="bg-success text-white py-3 mt-auto">
     <div class="container d-flex justify-content-between">
-        <span><i class="bi bi-telephone"></i> 01 23 45 67 89</span>
-        <span><i class="bi bi-geo-alt"></i> 123 Rue de la Pharmacie, Montreal</span>
+        <span><i class="bi bi-telephone"></i> 514 123 4567</span>
+        <span><i class="bi bi-geo-alt"></i> 123 Rue de la Pharmacie, 75000 Montréal</span>
     </div>
 </footer>
 

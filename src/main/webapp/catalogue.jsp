@@ -284,8 +284,8 @@
 <!-- Footer -->
 <footer class="bg-success text-white py-3 mt-auto">
     <div class="container d-flex justify-content-between">
-        <span><i class="bi bi-telephone"></i> 01 23 45 67 89</span>
-        <span><i class="bi bi-geo-alt"></i> 123 Rue de la Pharmacie, Montreal</span>
+        <span><i class="bi bi-telephone"></i> 514 123 4567</span>
+        <span><i class="bi bi-geo-alt"></i> 123 Rue de la Pharmacie, 75000 Montréal</span>
     </div>
 </footer>
 
