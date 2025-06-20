@@ -12,4 +12,12 @@ public class MedicamentDAOImpl {
     public List<Medicament> getCatalogue() {
         return medicamentService.getCatalogue();
     }
+
+    public List<Medicament> filterBy(String nom, String categorie) {
+        return medicamentService.filterBy(nom, categorie);
+    }
+
+    public Medicament findById(int id) {
+        return medicamentService.findById(id);
+    }
 }

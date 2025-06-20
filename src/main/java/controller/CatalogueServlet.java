@@ -1,83 +1,90 @@
 package controller;
 
-import service.MedicamentService;
-import model.Medicament;
-
-import jakarta.servlet.ServletException;
+import jakarta.persistence.*;
+import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import model.Medicament;
+
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
-
-@WebServlet("/catalogue")
+@WebServlet(name = "CatalogueServlet", urlPatterns = {"/catalogue"})
 public class CatalogueServlet extends HttpServlet {
-    private MedicamentService medicamentService;
+
+    private EntityManagerFactory emf;
 
     @Override
-    public void init() {
-        medicamentService = new MedicamentService();
+    public void init() throws ServletException {
+        emf = Persistence.createEntityManagerFactory("E-pharmacie");
+        System.out.println("✅ [INIT] EntityManagerFactory initialisée");
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    @Override
+    public void destroy() {
+        if (emf != null && emf.isOpen()) {
+            emf.close();
+            System.out.println("🧹 [DESTROY] EntityManagerFactory fermée");
+        }
+    }
 
-        // Récupération des paramètres
-        String filtreNom       = request.getParameter("filtreNom");
-        String filtreCategorie = request.getParameter("filtreCategorie");
-        String tri             = request.getParameter("tri");
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // Filtrage initial
-        List<Medicament> medicamentsFiltres = medicamentService.filterBy(filtreNom, filtreCategorie);
-
-
-        int page = 1;
-        int limit = medicamentsFiltres.size();
-
+        EntityManager em = emf.createEntityManager();
         try {
-            page = Integer.parseInt(request.getParameter("page"));
-        } catch (NumberFormatException e) {
-            page = 1;
-        }
+            String filtreNom = request.getParameter("filtreNom");
+            String filtreCategorie = request.getParameter("filtreCategorie");
+            String tri = request.getParameter("tri");
 
-
-
-        // Application du tri
-        if (tri != null && !tri.isEmpty()) {
-            switch (tri) {
-                case "prix-asc":
-                    medicamentsFiltres.sort(Comparator.comparing(Medicament::getPrix));
-                    break;
-                case "prix-desc":
-                    medicamentsFiltres.sort(Comparator.comparing(Medicament::getPrix).reversed());
-                    break;
-                case "nom-asc":
-                    medicamentsFiltres.sort(Comparator.comparing(Medicament::getNom));
-                    break;
-                case "nom-desc":
-                    medicamentsFiltres.sort(Comparator.comparing(Medicament::getNom).reversed());
-                    break;
+            // Requête de base
+            String jpql = "SELECT m FROM Medicament m WHERE 1=1";
+            if (filtreNom != null && !filtreNom.isEmpty()) {
+                jpql += " AND LOWER(m.nom) LIKE :nom";
             }
+            if (filtreCategorie != null && !filtreCategorie.isEmpty()) {
+                jpql += " AND m.categorie = :categorie";
+            }
+
+            TypedQuery<Medicament> query = em.createQuery(jpql, Medicament.class);
+            if (filtreNom != null && !filtreNom.isEmpty()) {
+                query.setParameter("nom", "%" + filtreNom.toLowerCase() + "%");
+            }
+            if (filtreCategorie != null && !filtreCategorie.isEmpty()) {
+                query.setParameter("categorie", filtreCategorie);
+            }
+
+            List<Medicament> medicaments = query.getResultList();
+            System.out.println("📦 Médicaments récupérés : " + medicaments.size());
+
+            // Appliquer le tri si demandé
+            if (tri != null) {
+                switch (tri) {
+                    case "prix-asc":
+                        medicaments = medicaments.stream()
+                                .sorted(Comparator.comparingDouble(Medicament::getPrix))
+                                .collect(Collectors.toList());
+                        break;
+                    case "prix-desc":
+                        medicaments = medicaments.stream()
+                                .sorted(Comparator.comparingDouble(Medicament::getPrix).reversed())
+                                .collect(Collectors.toList());
+                        break;
+                }
+            }
+
+            request.setAttribute("medicaments", medicaments);
+            request.getRequestDispatcher("catalogue.jsp").forward(request, response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("message", "Erreur lors du chargement du catalogue.");
+            request.setAttribute("typeMessage", "danger");
+            request.getRequestDispatcher("catalogue.jsp").forward(request, response);
+        } finally {
+            em.close();
         }
-
-        // Pagination
-        int total = medicamentsFiltres.size();
-        int totalPages = (int) Math.ceil((double) total / limit);
-        int fromIndex = (page - 1) * limit;
-        int toIndex = Math.min(fromIndex + limit, total);
-
-        List<Medicament> medicaments = medicamentsFiltres.subList(fromIndex, toIndex);
-
-        // Passage des attributs à la JSP
-        request.setAttribute("medicaments", medicaments);
-        request.setAttribute("page", page);
-        request.setAttribute("totalPages", totalPages);
-        request.setAttribute("recherche", filtreNom);
-        request.setAttribute("categorie", filtreCategorie);
-        request.setAttribute("tri", tri);
-
-        request.getRequestDispatcher("catalogue.jsp").forward(request, response);
-
     }
 }

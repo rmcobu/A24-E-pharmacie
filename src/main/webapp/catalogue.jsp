@@ -130,24 +130,34 @@
     <!-- Liste des produits -->
     <div class="row justify-content-center g-4">
         <c:forEach var="medicament" items="${medicaments}">
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                <div class="card h-100 text-center cursor-pointer" data-bs-toggle="modal" data-bs-target="#medicamentModal"
-                     onclick="showMedicamentDetails('${medicament.id}', '${medicament.nom}', '${medicament.description}', '${medicament.categorie}', '${medicament.prix}', '${medicament.image}')">
-                    <img src="images/${medicament.image}" class="card-img-top p-3" alt="${medicament.nom}" style="height: 200px; object-fit: contain;">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">${medicament.nom}</h5>
-                        <p class="card-text text-danger fw-bold mb-3">${medicament.prix} $</p>
-                        <form action="panier" method="post" class="mt-auto">
-                            <input type="hidden" name="action" value="ajouter">
-                            <input type="hidden" name="id" value="${medicament.id}">
-                            <button type="submit" class="btn btn-primary w-100">
-                                <i class="bi bi-cart-plus"></i> Ajouter
-                            </button>
-                        </form>
-                    </div>
+            <div class="card m-2" style="width: 15rem;">
+                <img src="images/${medicament.image}" class="card-img-top" alt="${medicament.nom}" style="height: 150px; object-fit: contain;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">${medicament.nom}</h5>
+                    <p class="card-text text-danger">${medicament.prix} $</p>
+                    <p class="card-text">${medicament.description}</p>
+                    <form action="panier" method="post" class="mt-auto">
+                        <input type="hidden" name="idMedicament" value="${medicament.id}" />
+                        <button type="submit" class="btn btn-primary w-100">Ajouter au panier</button>
+                    </form>
                 </div>
             </div>
         </c:forEach>
+        <c:forEach var="medicament" items="${medicaments}">
+            <div class="card m-2" style="width: 15rem;">
+                <img src="images/${medicament.image}" class="card-img-top" alt="${medicament.nom}" style="height: 150px; object-fit: contain;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">${medicament.nom}</h5>
+                    <p class="card-text text-danger">${medicament.prix} $</p>
+                    <p class="card-text">${medicament.description}</p>
+                    <form action="panier" method="post" class="mt-auto">
+                        <input type="hidden" name="idMedicament" value="${medicament.id}" />
+                        <button type="submit" class="btn btn-primary w-100">Ajouter au panier</button>
+                    </form>
+                </div>
+            </div>
+        </c:forEach>
+
         <c:if test="${empty medicaments and (not empty param.filtreNom or not empty param.filtreCategorie)}">
             <div class="col-12">
                 <div class="alert alert-warning text-center" role="alert">
