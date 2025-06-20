@@ -59,7 +59,7 @@
             <p><strong>Livraison à :</strong> ${commande.adresse}</p>
         </c:when>
         <c:otherwise>
-            <p><strong>Ramassage à :</strong> 123 Rue de la Pharmacie, 75000 Paris</p>
+            <p><strong>Ramassage à :</strong> 123 Rue de la Pharmacie, Montreal</p>
         </c:otherwise>
     </c:choose>
 
@@ -94,7 +94,7 @@
 <footer class="bg-success text-white py-3 mt-auto">
     <div class="container d-flex justify-content-between">
         <span><i class="bi bi-telephone"></i> 01 23 45 67 89</span>
-        <span><i class="bi bi-geo-alt"></i> 123 Rue de la Pharmacie, 75000 Paris</span>
+        <span><i class="bi bi-geo-alt"></i> 123 Rue de la Pharmacie, Montreal</span>
     </div>
 </footer>
 

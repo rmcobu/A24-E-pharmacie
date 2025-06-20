@@ -164,7 +164,7 @@
 
             <!-- RAMASSAGE BLOCK -->
             <div class="col-12 alert alert-info" id="blocRamassage" style="display:none;">
-                <strong>Adresse de la pharmacie :</strong> 123 Rue de la Pharmacie, 75000 Paris<br>
+                <strong>Adresse de la pharmacie :</strong> 123 Rue de la Pharmacie, Montreal<br>
                 <strong>Heures d'ouverture :</strong> 9h00 – 19h00
             </div>
 
