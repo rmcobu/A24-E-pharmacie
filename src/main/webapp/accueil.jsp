@@ -6,6 +6,7 @@
     <title>Accueil - Pharmacy</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 </head>
 <body class="d-flex flex-column min-vh-100">
 
@@ -42,13 +43,7 @@
 
 <!-- Contenu principal -->
 <section class="container my-5 flex-grow-1">
-    <!-- Barre de recherche -->
-    <form action="search" method="get" class="mb-5">
-        <div class="input-group">
-            <input type="text" name="q" class="form-control" placeholder="Rechercher un médicament">
-            <button class="btn btn-outline-success" type="submit">Rechercher</button>
-        </div>
-    </form>
+
 
     <!-- Message de succès ou d'erreur (optionnel) -->
     <c:if test="${not empty message}">
@@ -59,7 +54,7 @@
     </c:if>
 
     <!-- Produit en vedette -->
-    <h2 class="text-center mb-4">Produit en vedette</h2>
+    <h2 class="text-center mb-4">Produits en vedette</h2>
 
     <div class="row justify-content-center g-4">
         <!-- Produit 1 -->
@@ -69,7 +64,13 @@
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Advil</h5>
                     <p class="card-text text-danger fw-bold mb-3">7.99 $</p>
-                    <button class="btn btn-primary mt-auto">Ajouter au panier</button>
+                    <form action="/panier" method="post" class="d-inline">
+                        <input type="hidden" name="action" value="ajouter">
+                        <input type="hidden" name="id" value="2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-cart-plus"></i> Ajouter au panier
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -80,7 +81,13 @@
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Tylenol</h5>
                     <p class="card-text text-danger fw-bold mb-3">8.09 $</p>
-                    <button class="btn btn-primary mt-auto">Ajouter au panier</button>
+                    <form action="/panier" method="post" class="d-inline">
+                        <input type="hidden" name="action" value="ajouter">
+                        <input type="hidden" name="id" value="1">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-cart-plus"></i> Ajouter au panier
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -90,8 +97,8 @@
 <!-- Footer commun -->
 <footer class="bg-success text-white py-3 mt-auto">
     <div class="container d-flex justify-content-between">
-        <span>Numéro contact</span>
-        <span>Adresse</span>
+        <span><i class="bi bi-telephone"></i> 514 123 4567</span>
+        <span><i class="bi bi-geo-alt"></i> 123 Rue de la Pharmacie, 75000 Montréal</span>
     </div>
 </footer>
 
