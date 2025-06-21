@@ -131,8 +131,8 @@
     <div class="row justify-content-center g-4">
         <c:forEach var="medicament" items="${medicaments}">
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                <div class="card h-100 text-center cursor-pointer" data-bs-toggle="modal" data-bs-target="#medicamentModal"
-                     onclick="showMedicamentDetails('${medicament.id}', '${medicament.nom}', '${medicament.description}', '${medicament.categorie}', '${medicament.prix}', '${medicament.image}')">
+                <div class="card h-100 text-center cursor-pointer" data-bs-target="#medicamentModal"
+                     onclick="openMedicamentModal('${medicament.id}', '${medicament.nom}', '${medicament.description}', '${medicament.categorie}', '${medicament.prix}', '${medicament.image}')">
                     <img src="images/${medicament.image}" class="card-img-top p-3" alt="${medicament.nom}" style="height: 200px; object-fit: contain;">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">${medicament.nom}</h5>
@@ -140,7 +140,7 @@
                         <form action="panier" method="post" class="mt-auto">
                             <input type="hidden" name="action" value="ajouter">
                             <input type="hidden" name="id" value="${medicament.id}">
-                            <button type="submit" class="btn btn-primary w-100">
+                            <button type="submit" class="btn btn-primary w-100" onclick="event.stopPropagation()">
                                 <i class="bi bi-cart-plus"></i> Ajouter
                             </button>
                         </form>
@@ -307,13 +307,9 @@
             },
             body: new URLSearchParams({ action, id })
         })
-            .then(r => {
-                console.log('Fetch status:', r.status);
-                if (!r.ok) throw new Error(r.statusText);
-                return r.json();
-            })
+            .then(r=>r.ok? r.json(): Promise.reject(r.statusText))
             .then(renderCart)
-            .catch(err => console.error('Erreur panier:', err));
+            .catch(console.error);
     }
 
 
@@ -343,14 +339,13 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        console.log('Listener ready');
-        const modal = document.getElementById('panierModal');
-        modal.addEventListener('click', e => {
-            const btn = e.target.closest('.cart-btn');
-            if (!btn) return;
-            e.preventDefault();
-            updateCart(btn.dataset.action, btn.dataset.id);
-        });
+        document.getElementById('panierModal')
+            .addEventListener('click', e => {
+                const btn = e.target.closest('.cart-btn');
+                if (!btn) return;
+                e.preventDefault();
+                updateCart(btn.dataset.action, btn.dataset.id);
+            });
     });
 
 
@@ -362,6 +357,13 @@
         document.getElementById('modalMedicamentImage').src               = 'images/' + image;
         document.getElementById('modalMedicamentId').value               = id;
     }
+
+    const medicModal = new bootstrap.Modal(document.getElementById('medicamentModal'));
+    function openMedicamentModal(id,name,desc,cat,price,img){
+        showMedicamentDetails(id,name,desc,cat,price,img);
+        medicModal.show();
+    }
+
 </script>
 
 </body>

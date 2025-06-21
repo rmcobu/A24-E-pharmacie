@@ -73,7 +73,7 @@ public class CommandeServlet extends HttpServlet {
         // Crée et persiste **seulement** l’en-tête de la commande
         Commande cmd = commandeService.creerCommande(client, adresse, retrait, paiement);
         // ───  2) Calcul des montants ────────────────────────────────────────
-        BigDecimal sousTotal = BigDecimal.valueOf(panier.getTotal())
+        BigDecimal sousTotal = panier.getTotal()
                 .setScale(2, RoundingMode.HALF_UP);
         BigDecimal tps        = sousTotal.multiply(new BigDecimal("0.05"))
                 .setScale(2, RoundingMode.HALF_UP);
