@@ -35,10 +35,10 @@ public class Medicament {
     private String image;
 
 
-    // == Constructor vacío para JPA ==
+    // Constructeur vide
     protected Medicament() {}
 
-    // == equals/hashCode basados en id ==
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

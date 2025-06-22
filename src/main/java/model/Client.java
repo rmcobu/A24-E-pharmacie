@@ -32,7 +32,7 @@ import jakarta.persistence.*;
 
         public Client() {}
 
-        // Getters y Setters
+        // Getters et Setters
 
 
         public Integer getIdClient() {

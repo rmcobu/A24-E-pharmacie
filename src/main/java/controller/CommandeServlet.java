@@ -88,7 +88,7 @@ public class CommandeServlet extends HttpServlet {
         cmd.setTvq(tvq);
         cmd.setTotal(total);
 
-        // Utilisez votre bibliothèque préférée (Gson, Jackson…), ici un exemple avec Gson :
+        // Gson :
         List<Map<String,Object>> itemsList = new ArrayList<>();
         panier.getItems().forEach((med, qty) -> {
             Map<String,Object> it = new HashMap<>();
