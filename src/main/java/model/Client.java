@@ -30,7 +30,9 @@ import jakarta.persistence.*;
         @Column
         private String numero_assurance_maladie;
 
-        // Getters y Setters
+        public Client() {}
+
+        // Getters et Setters
 
 
         public Integer getIdClient() {

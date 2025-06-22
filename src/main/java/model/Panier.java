@@ -1,5 +1,6 @@
 package model;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,9 +53,10 @@ public class Panier {
         return Collections.unmodifiableMap(items);
     }
 
-    public double getTotal() {
+    public BigDecimal getTotal() {
         return items.entrySet().stream()
-                .mapToDouble(e -> e.getKey().getPrix() * e.getValue())
-                .sum();
+                .map(e -> e.getKey().getPrix()
+                        .multiply(BigDecimal.valueOf(e.getValue())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }
