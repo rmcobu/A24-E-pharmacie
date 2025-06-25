@@ -36,7 +36,7 @@ public class Medicament {
 
 
     // Constructeur vide
-    protected Medicament() {}
+    public Medicament() {}
 
 
     @Override

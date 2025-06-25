@@ -11,14 +11,12 @@ public class CommandeService {
         commande.setClient(client);
         commande.setAdresse(adresse);
         commande.setDateCommande(LocalDateTime.now());
-        commande.setEtat(false); // par défaut en cours
+        commande.setEtat(false);
         commande.setModeRetrait(modeRetrait);
         commande.setModePaiement(modePaiement);
-        // commande.setIdPaiement(...) // a définir
 
         return commande;
     }
 
-    // methode pour enregistrer en base
 }
 

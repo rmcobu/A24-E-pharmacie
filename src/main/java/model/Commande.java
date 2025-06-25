@@ -37,11 +37,11 @@ public class Commande {
     @Column(name = "adresse", nullable = false)
     private String adresse;
 
-    // 🆕 Liste JSON des produits {id, nom, prix, quantite}
+    // Liste JSON des produits {id, nom, prix, quantite}
     @Column(name = "items", nullable = false, columnDefinition = "JSON")
     private String itemsJson;
 
-    // 🆕 Montants calculés
+    // Montants calculés
     @Column(name = "sous_total", nullable = false, precision = 10, scale = 2)
     private BigDecimal sousTotal;
 
