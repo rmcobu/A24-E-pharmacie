@@ -39,13 +39,13 @@ public class CommandeServlet extends HttpServlet {
             return;
         }
 
-        // Récupère le panier en session (ou un panier vide si aucun)
+        // Récupère le panier depuis la session ou en crée un vide
         Panier panier = (Panier) req.getSession().getAttribute("panier");
         if (panier == null) {
             panier = new Panier();
             req.getSession().setAttribute("panier", panier);
         }
-        // On le met en attribut de requête pour commander.jsp
+        // Met le panier en attribut de requête pour affichage dans commande.jsp
         req.setAttribute("panier", panier);
         req.getRequestDispatcher("commande.jsp").forward(req, resp);
     }
@@ -58,7 +58,7 @@ public class CommandeServlet extends HttpServlet {
         HttpSession session = req.getSession();
         Panier panier = (Panier) session.getAttribute("panier");
         Client client = (Client) session.getAttribute("user");
-
+        // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
         if (client == null) {
             resp.sendRedirect("connexion.jsp");
             return;
@@ -88,7 +88,7 @@ public class CommandeServlet extends HttpServlet {
         cmd.setTvq(tvq);
         cmd.setTotal(total);
 
-        // Gson :
+        // ─── 3. Sérialisation du panier en JSON avec Gson ────────────────────────
         List<Map<String,Object>> itemsList = new ArrayList<>();
         panier.getItems().forEach((med, qty) -> {
             Map<String,Object> it = new HashMap<>();
@@ -103,7 +103,7 @@ public class CommandeServlet extends HttpServlet {
 
 
 
-        // ───  3) Persistance via JPA ────────────────────────────────────────
+        // ───  4) Persistance via JPA ────────────────────────────────────────
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("E-pharmacie");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
