@@ -1,3 +1,4 @@
+<!-- Import des bibliothèques JSP et d'encodage -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
@@ -9,12 +10,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
+        /* Style des images des articles du panier */
         .cart-item-image { width: 60px; height: 60px; object-fit: contain; }
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-<!-- Navbar -->
+<!-- Barre de navigatio -->
 <nav class="navbar navbar-light bg-white border-bottom">
     <div class="container-fluid px-4 d-flex justify-content-between align-items-center">
         <a class="navbar-brand d-flex align-items-center" href="accueil.jsp">
@@ -29,11 +31,11 @@
     </div>
 </nav>
 
-<!-- Contenu principal -->
+<!-- Section principale contenant le panier -->
 <section class="container my-5 flex-grow-1">
     <h3 class="text-center mb-4">🛒 Panier </h3>
 
-    <!-- PANIER -->
+    <!-- Tableau du panier affichant les médicaments ajoutés -->
     <div class="table-responsive mb-4">
         <table class="table align-middle text-center">
             <thead class="table-light">
@@ -211,6 +213,7 @@
             <button type="submit" class="btn btn-primary px-5">Passer commande</button>
         </div>
     </form>
+    <!-- Le reste de la page contient des champs pour le retrait et paiement -->
 </section>
 
 <!-- Footer  -->
@@ -221,9 +224,11 @@
     </div>
 </footer>
 
-
+<!-- Script principal pour gérer le panier dynamiquement -->
 <script>
+    // Contexte de l'application (utile pour les chemins)
     const ctx = '${pageContext.request.contextPath}';
+    // Fonction pour envoyer une requête AJAX vers la servlet /panier
     function updateCart(action, id) {
         fetch(`${ctx}/panier`, {
             method:'POST',
@@ -233,7 +238,7 @@
         })
             .then(r=>r.ok? r.json(): Promise.reject(r.statusText))
             .then(json=>{
-                // mettre à jour les rows
+                // Mise à jour du contenu du tableau panier (DOM)
                 const tbody = document.getElementById('cartTbody');
                 tbody.innerHTML = '';
                 json.items.forEach(item=>{
@@ -265,7 +270,7 @@
 
                     tbody.appendChild(tr);
                 });
-
+// Mise à jour des totaux et taxes
                 const sousTotal = json.total;
                 const tps       = sousTotal * 0.05;
                 const tvq       = sousTotal * 0.09975;
@@ -334,7 +339,7 @@
         document.getElementById('carteAjoutee').textContent = 'Carte ajoutée ✔️';
     });
 
-
+    // Lors du chargement, on ajoute un gestionnaire sur les boutons + / - / x
     form.addEventListener('submit', e => {
         if (document.getElementById('optCarte').checked &&
             !document.getElementById('idPaiementTemp').value) {
